@@ -167,7 +167,7 @@ class MockLTIRequestHandler(BaseHTTPRequestHandler):
         if getattr(self.server, 'run_inside_unittest_flag', None):
             response = mock.Mock(status_code=200, url=url, data=data, headers=headers)
             return response
-
+        # Send request ignoring verify of SSL certificate
         response = requests.post(
             url,
             data=data,
@@ -183,9 +183,11 @@ class MockLTIRequestHandler(BaseHTTPRequestHandler):
         '''
         self._send_head(status_code)
         if getattr(self.server, 'grade_data', False):  # lti can be graded
+            # Use insecure HTTP when testing on localhost or sandbox.
             if getattr(self.server, 'test_mode', None):
                 url = "http://{}:{}".format(self.server.server_host, self.server.server_port)
             else:
+                # Use HTTP Secure when testing on staging.
                 url = "https://{}".format(self.server.server_host)
             response_str = textwrap.dedent("""
                 <html>
