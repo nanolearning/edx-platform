@@ -152,11 +152,12 @@ class MockLTIRequestHandler(BaseHTTPRequestHandler):
                 </imsx_POXEnvelopeRequest>
         """)
         data = payload.format(**values)
-        # get relative part, because host name is different in a) manual tests b) acceptance tests c) demos
+        # Get relative part, because host name is different in a) manual tests b) acceptance tests c) sandboxes
         if getattr(self.server, 'test_mode', None):
             relative_url = urlparse.urlparse(self.server.grade_data['callback_url']).path
             url = self.server.referer_host + relative_url
         else:
+            # Use this URL when testing on stage.
             url = self.server.grade_data['callback_url']
 
         headers = {'Content-Type': 'application/xml', 'X-Requested-With': 'XMLHttpRequest'}
@@ -167,7 +168,7 @@ class MockLTIRequestHandler(BaseHTTPRequestHandler):
         if getattr(self.server, 'run_inside_unittest_flag', None):
             response = mock.Mock(status_code=200, url=url, data=data, headers=headers)
             return response
-        # Send request ignoring verify of SSL certificate
+        # Send request ignoring verification of SSL certificate
         response = requests.post(
             url,
             data=data,
