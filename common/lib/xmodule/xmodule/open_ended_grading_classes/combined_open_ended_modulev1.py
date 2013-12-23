@@ -380,13 +380,13 @@ class CombinedOpenEndedV1Module():
         )
         return task
 
-    def get_task_at_index(self, task_index):
+    def get_task_number(self, task_number):
         """Return task object at task_index."""
 
         task_states_count = len(self.task_states)
-        if task_states_count > 0 and task_index < task_states_count:
-            task_state = self.task_states[task_index]
-            task_xml = self.task_xml[task_index]
+        if task_states_count > 0 and task_number < task_states_count:
+            task_state = self.task_states[task_number]
+            task_xml = self.task_xml[task_number]
             return self.create_task(task_state, task_xml)
         return None
 

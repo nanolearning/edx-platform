@@ -510,16 +510,16 @@ class CombinedOpenEndedModuleTest(unittest.TestCase):
         second_task = combinedoe.create_task(combinedoe.task_states[1], combinedoe.task_xml[1])
         self.assertIsInstance(second_task, OpenEndedModule)
 
-    def test_get_task_at_index(self):
+    def test_get_task_number(self):
         combinedoe = self.generate_oe_module(TEST_STATE_AI, 1, [self.task_xml1, self.task_xml2])
 
-        first_task = combinedoe.get_task_at_index(0)
+        first_task = combinedoe.get_task_number(0)
         self.assertIsInstance(first_task, SelfAssessmentModule)
 
-        second_task = combinedoe.get_task_at_index(1)
+        second_task = combinedoe.get_task_number(1)
         self.assertIsInstance(second_task, OpenEndedModule)
 
-        third_task = combinedoe.get_task_at_index(2)
+        third_task = combinedoe.get_task_number(2)
         self.assertIsNone(third_task)
 
     def test_update_task_states(self):

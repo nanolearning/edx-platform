@@ -18,19 +18,19 @@ class Command(BaseCommand):
     Command to get statistics about open ended problems.
     """
 
-    help = "Usage: openended_stats <course_id> <problem_location> --task-index=<task_index>\n"
+    help = "Usage: openended_stats <course_id> <problem_location> --task-number=<task_number>\n"
 
     option_list = BaseCommand.option_list + (
-        make_option('--task-index',
+        make_option('--task-number',
                     type='int', default=0,
-                    help="Index of task state."),
+                    help="Task number to get statistics about."),
     )
 
 
     def handle(self, *args, **options):
         """Handler for command."""
 
-        task_index = options['task_index']
+        task_number = options['task_number']
 
         if len(args) == 2:
             course_id = args[0]
@@ -54,12 +54,12 @@ class Command(BaseCommand):
             enrolled_students = get_enrolled_students(course_id)
             print "Total students enrolled in {0}: {1}".format(course_id, enrolled_students.count())
 
-            self.calculate_state_counts(enrolled_students, course, location, task_index)
+            self.calculate_task_statistics(enrolled_students, course, location, task_number)
 
         except KeyboardInterrupt:
             print "\nOperation Cancelled"
 
-    def calculate_state_counts(self, students, course, location, task_index):
+    def calculate_task_statistics(self, students, course, location, task_number):
         """Print stats of students."""
 
         stats = {
@@ -89,7 +89,7 @@ class Command(BaseCommand):
                 students_with_invalid_state.append(student)
                 continue
 
-            latest_task = module.child_module.get_task_at_index(task_index)
+            latest_task = module.child_module.get_task_number(task_number)
             if latest_task is None:
                 print "  WARNING: No task state found"
                 students_with_invalid_state.append(student)
