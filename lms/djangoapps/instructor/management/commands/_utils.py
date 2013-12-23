@@ -24,16 +24,6 @@ def get_module_for_student(student, course, location):
     return get_module(student, request, location, field_data_cache, course.id)
 
 
-def get_enrolled_students(course_id):
-    """Return enrolled students for course."""
-
-    enrolled_students = User.objects.filter(
-        courseenrollment__course_id=course_id,
-        courseenrollment__is_active=1
-    ).order_by('username')
-    return enrolled_students
-
-
 def create_json_file_of_data(data, filename):
     """Write a json from student data."""
 

@@ -9,8 +9,8 @@ from courseware.models import StudentModule
 from xmodule.modulestore import Location
 from xmodule.modulestore.django import modulestore
 from xmodule.open_ended_grading_classes.openendedchild import OpenEndedChild
-from student.models import anonymous_id_for_user
-from ._utils import create_json_file_of_data, get_enrolled_students, get_module_for_student
+from student.models import anonymous_id_for_user, CourseEnrollment
+from ._utils import create_json_file_of_data, get_module_for_student
 
 
 class Command(BaseCommand):
@@ -51,7 +51,7 @@ class Command(BaseCommand):
             return
 
         try:
-            enrolled_students = get_enrolled_students(course_id)
+            enrolled_students = CourseEnrollment.users_enrolled_in(course_id)
             print "Total students enrolled in {0}: {1}".format(course_id, enrolled_students.count())
 
             self.calculate_task_statistics(enrolled_students, course, location, task_number)
