@@ -236,3 +236,8 @@ class Registry(object):
         """Returns the registry to an unconfigured state; for tests only."""
         cls._CONFIGURED = False
         cls._ENABLED = {}
+
+
+
+# Load the PingOne backend.
+from samlauth import pingone
