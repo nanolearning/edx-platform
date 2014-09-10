@@ -239,5 +239,5 @@ class Registry(object):
 
 
 
-# Load the PingOne backend.
-from samlauth import pingone
+# Load the Nanolearning PingOne backend.
+from . import nanolearning
