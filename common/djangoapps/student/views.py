@@ -336,7 +336,7 @@ def signin_user(request):
         return redirect(reverse('cas-login'))
     if request.user.is_authenticated():
         return redirect(reverse('dashboard'))
-    if settings.FEATURES.get('AUTH_USE_CUSTOM_LOGIN_PAGE'):
+    if settings.FEATURES.get('AUTH_USE_CUSTOM_LOGIN_PAGE') and not request.GET.get('standard_login') == 't':
         return redirect(reverse(settings.MKTG_URL_LINK_MAP.get('CUSTOM_LOGIN')))
 
     context = {
