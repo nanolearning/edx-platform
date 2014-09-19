@@ -336,6 +336,8 @@ def signin_user(request):
         return redirect(reverse('cas-login'))
     if request.user.is_authenticated():
         return redirect(reverse('dashboard'))
+    if settings.FEATURES.get('AUTH_USE_CUSTOM_LOGIN_PAGE'):
+        return redirect(reverse(settings.MKTG_URL_LINK_MAP.get('CUSTOM_LOGIN')))
 
     context = {
         'course_id': request.GET.get('course_id'),
