@@ -23,6 +23,7 @@ def url_class(is_active):
 <nav class="${active_page} course-material">
   <div class="inner-wrapper">
     <ol class="course-tabs">
+      <% tab_visibility = {"Courseware":True, "Course Info":True, "Discussion":False, "Progress":True, "Instructor":True, "Wiki":False} %>
       % for tab in CourseTabList.iterate_displayable(course, settings, user.is_authenticated(), has_access(user, 'staff', course, course.id)):
         <%
             tab_is_active = (tab.tab_id == active_page)
@@ -33,7 +34,7 @@ def url_class(is_active):
         % else:
           <li>
           % endif
-          % if tab.name <> "Wiki":
+          % if tab_visibility[tab.name]:
              <a href="${tab.link_func(course, reverse) | h}" class="${url_class(tab_is_active)}">
                  ${_(tab.name) | h}
                  % if tab_is_active:
