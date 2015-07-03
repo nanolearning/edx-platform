@@ -6,7 +6,7 @@
 if active_page is None and active_page_context is not UNDEFINED:
   # If active_page is not passed in as an argument, it may be in the context as active_page_context
   active_page = active_page_context
-
+  tab_visibility = {'Courseware':'True', 'Course Info':'True', 'Discussion':'False', 'Progress':'True', 'Instructor':'True', 'Wiki':'False'}
 def url_class(is_active):
   if is_active:
     return "active"
@@ -23,7 +23,6 @@ def url_class(is_active):
 <nav class="${active_page} course-material">
   <div class="inner-wrapper">
     <ol class="course-tabs">
-      <% tab_visibility = {"Courseware":"True", "Course Info":"True", "Discussion":"False", "Progress":"True", "Instructor":"True", "Wiki":"False"} %>
       % for tab in CourseTabList.iterate_displayable(course, settings, user.is_authenticated(), has_access(user, 'staff', course, course.id)):
         <%
             tab_is_active = (tab.tab_id == active_page)
