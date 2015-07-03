@@ -32,7 +32,8 @@ def url_class(is_active):
           <li class="${"prominent" if tab.name in ("Courseware", "Course Content") else ""}">
         % else:
           <li>
-        % endif
+          % endif
+          % if tab.name <> "Wiki":
              <a href="${tab.link_func(course, reverse) | h}" class="${url_class(tab_is_active)}">
                  ${_(tab.name) | h}
                  % if tab_is_active:
@@ -44,6 +45,7 @@ def url_class(is_active):
                    <img src="${tab_image}" alt="${_('needs attention')}" />
                  %endif
              </a>
+          % endif
           </li>
       % endfor
     <%block name="extratabs" />
