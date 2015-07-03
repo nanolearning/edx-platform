@@ -32,7 +32,7 @@ def url_class(is_active):
         % else:
           <li>
           % endif
-          % if tab.name !- "Wiki" & tab.name != "Discussion":
+          % if tab.name != "Wiki" and tab.name != "Discussion":
              <a href="${tab.link_func(course, reverse) | h}" class="${url_class(tab_is_active)}">
                  ${_(tab.name) | h}
                  % if tab_is_active:
