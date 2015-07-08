@@ -1260,7 +1260,7 @@ def create_account(request, post_override=None):  # pylint: disable-msg=too-many
     message = render_to_string('emails/activation_email.txt', context)
 
     # don't send email if we are doing load testing or random user generation for some reason
-    if not (settings.FEATURES.get('AUTOMATIC_AUTH_FOR_TESTING')):
+    if not (settings.FEATURES.get('AUTOMATIC_AUTH_FOR_TESTING')) and False:
         from_address = microsite.get_value(
             'email_from_address',
             settings.DEFAULT_FROM_EMAIL
@@ -1286,6 +1286,8 @@ def create_account(request, post_override=None):  # pylint: disable-msg=too-many
     # the activation link from the email.
     login_user = authenticate(username=post_vars['username'], password=post_vars['password'])
     login(request, login_user)
+    login_user.is_active = True
+    login_user.save()
     request.session.set_expiry(0)
 
     # TODO: there is no error checking here to see that the user actually logged in successfully,
