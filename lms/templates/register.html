@@ -55,8 +55,7 @@
 
       $('#register-form').on('ajax:success', function(event, json, xhr) {
         var url = json.redirect_url || "${reverse('dashboard')}";
-        alert("redirection disabled");
-        // location.href = url;
+        location.href = url;
       });
 
       $('#register-form').on('ajax:error', function(event, jqXHR, textStatus) {
@@ -71,7 +70,7 @@
 
     function thirdPartySignin(event, url) {
       event.preventDefault();
-      //window.location.href = url;
+      window.location.href = url;
     }
 
     function toggleSubmitButton(enable) {
