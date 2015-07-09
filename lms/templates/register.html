@@ -161,7 +161,7 @@
 
         % if has_extauth_info is UNDEFINED:
 
-        <!--ol class="list-input">
+        <ol class="list-input 1">
           <li class="field required text" id="field-email">
             <label for="email">${_('E-mail')}</label>
             <input class="" id="email" type="email" name="email" value="${email}" placeholder="${_('example: username@domain.com')}" required aria-required="true" />
@@ -192,7 +192,7 @@
             <input id="name" type="text" name="name" value="${name}" placeholder="${_('example: Jane Doe')}" required aria-required="true" aria-describedby="name-tip" />
             <span class="tip tip-input" id="name-tip">${_("Needed for any certificates you may earn")}</span>
           </li>
-        </ol-->
+        </ol>
 
         % else:
 
@@ -201,7 +201,7 @@
           <p class="message-copy">${_("Enter a Public Display Name:")}</p>
         </div>
 
-        <ol class="list-input">
+        <ol class="list-input 2">
 
           % if ask_for_email:
 
@@ -325,7 +325,7 @@
           <li class="field-group">
 
             % if has_extauth_info is UNDEFINED or ask_for_tos :
-            <!--iv class="field required checkbox" id="field-tos">
+            <!--div class="field required checkbox" id="field-tos">
               <input id="tos-yes" type="checkbox" name="terms_of_service" value="true" required aria-required="true" />
               <label for="tos-yes">${_('I agree to the {link_start}Terms of Service{link_end}').format(
                 link_start='<a href="{url}" class="new-vp" tabindex="-1">'.format(url=marketing_link('TOS')),
