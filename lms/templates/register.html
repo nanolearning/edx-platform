@@ -92,8 +92,6 @@
     }
   </script>
 </%block>
-
-<div style="display:none" id="authVars">${pipeline.get_login_url(enabled.NAME, pipeline.AUTH_ENTRY_REGISTER)}</div>
 <section class="introduction">
   <header>
     <h1 class="title">
@@ -175,7 +173,6 @@
             <label for="password">${_('Password')}</label>
             <input id="password" type="password" name="password" value="" disabled required aria-required="true" />
           </li>
-
           % else:
 
           <li class="field required password" id="field-password">
@@ -204,7 +201,7 @@
           <p class="message-copy">${_("Enter a Public Display Name:")}</p>
         </div>
 
-        <ol class="list-input">
+        <!--ol class="list-input">
 
           % if ask_for_email:
 
@@ -231,7 +228,7 @@
 
           % endif
 
-        </ol>
+        </ol-->
 
         % endif
       </div>
