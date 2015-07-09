@@ -18,11 +18,11 @@
 <%block name="pagetitle">${_("Register for {platform_name}").format(platform_name=platform_name)}</%block>
 
 <%block name="bodyclass">view-register</%block>
-
+<div style="display:none" id="authVars">${pipeline.get_login_url(enabled.NAME, pipeline.AUTH_ENTRY_REGISTER)}</div>
 <%block name="js_extra">
   <script type="text/javascript">
     $(function() {
-
+    
       // adding js class for styling with accessibility in mind
       $('body').addClass('js');
 
@@ -72,7 +72,9 @@
       event.preventDefault();
       window.location.href = url;
     }
-
+    if($("#authVars").html() != ""){
+        thirdPartySignin($("#authVars").html())
+    }
     function toggleSubmitButton(enable) {
       var $submitButton = $('form .form-actions #submit');
 
