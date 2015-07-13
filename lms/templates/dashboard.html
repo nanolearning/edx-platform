@@ -31,8 +31,54 @@
       else{
         localStorage["registerURLs"] = localStorage["registerURLs"].substring(registerURL.length+1, localStorage["registerURLs"].length)
       }
-      window.location.href = registerURL;
+      $("input[name='course_id'", $("#class_enroll_form")) = registerURL;
+      $("input[name='enrollment_action'", $("#class_enroll_form")) = "enroll";
+      $("#class_enroll_form").submit();
     }
+    
+      ## making the conditional around this entire JS block for sanity
+    %if settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
+      <%
+        perms_error = _('The currently logged-in user account does not have permission to enroll in this course. '
+                        'You may need to {start_logout_tag}log out{end_tag} then try the register button again. '
+                        'Please visit the {start_help_tag}help page{end_tag} for a possible solution.').format(
+                          start_help_tag="<a href='{url}'>".format(url=marketing_link('FAQ')), end_tag='</a>',
+                          start_logout_tag="<a href='{url}'>".format(url=reverse('logout'))
+                          )
+      %>
+    $('#class_enroll_form').on('ajax:complete', function(event, xhr) {
+      if(xhr.status == 200) {
+        location.href = "${reverse('dashboard')}";
+      } else if (xhr.status == 403) {
+        location.href = "${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}?course_id=${course.id.to_deprecated_string()}&enrollment_action=enroll";
+      } else if (xhr.status == 400) { //This means the user did not have permission
+        $('#register_error').html("${perms_error}").css("display", "block");
+      } else {
+        $('#register_error').html(
+            (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.")}")
+        ).css("display", "block");
+      }
+    });
+    %else:
+    $('#class_enroll_form').on('ajax:complete', function(event, xhr) {
+      if(xhr.status == 200) {
+        if (xhr.responseText == "") {
+          location.href = "${reverse('dashboard')}";
+        }
+        else {
+          location.href = xhr.responseText;
+        }
+      } else if (xhr.status == 403) {
+        localStorage["registerURLs"] = "${reverse('register_user')}?course_id=${course.id.to_deprecated_string()}&enrollment_action=enroll";
+        location.href = "${reverse('register_user')}";
+      } else {
+        $('#register_error').html(
+            (xhr.responseText ? xhr.responseText : 'An error occurred. Please try again later.')
+        ).css("display", "block");
+      }
+    });
+    %endif
+
     
     $('.message.is-expandable .wrapper-tip').bind('click', toggleExpandMessage);
 
@@ -190,7 +236,7 @@
   });
   </script>
 </%block>
-
+ 
 % if reverifications["must_reverify"] or reverifications["denied"]:
   <section class="dashboard-banner">
     <%include file='dashboard/_dashboard_prompt_midcourse_reverify.html' />
@@ -211,7 +257,17 @@
       ${_('The selected {provider_name} account is already linked to another {platform_name} account. Please {link_start}log out{link_end}, then log in with your {provider_name} account.').format(link_end='</a>', link_start='<a href="%s">' % logout_url, provider_name='<strong>%s</strong>' % duplicate_provider.NAME, platform_name=platform_name)}
     </section>
   % endif
-
+  <div style="display: none;">
+    <form id="class_enroll_form" method="post" data-remote="true" action="${reverse('change_enrollment')}">
+      <fieldset class="enroll_fieldset">
+        <input name="course_id" type="hidden"/>
+        <input name="enrollment_action" type="hidden"/>
+      </fieldset>
+      <div class="submit">
+        <input name="submit" type="submit" value="enroll">
+      </div>
+    </form>
+  </div>
   <section class="profile-sidebar">
     <header class="profile">
       <h1 class="user-name">${ user.username }</h1>
