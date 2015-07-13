@@ -23,25 +23,13 @@
 <%block name="js_extra">
   <script type="text/javascript">
   (function() {
-    if(localStorage["registerURLs"] != undefined){
-      var registerURL = localStorage["registerURLs"].split(",")[0];
-      if(localStorage["registerURLs"].split(",").length == 1){
-        localStorage.removeItem("registerURLs");
-      }
-      else{
-        localStorage["registerURLs"] = localStorage["registerURLs"].substring(registerURL.length+1, localStorage["registerURLs"].length)
-      }
-      $("input[name='course_id'", $("#class_enroll_form")) = registerURL;
-      $("input[name='enrollment_action'", $("#class_enroll_form")) = "enroll";
-      $("#class_enroll_form").submit();
-    }
     
       ## making the conditional around this entire JS block for sanity
     $('#class_enroll_form').on('ajax:complete', function(event, xhr) {
       if(xhr.status == 200) {
         location.href = "${reverse('dashboard')}";
       } else if (xhr.status == 403) {
-        location.href = "${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}?course_id=${course.id.to_deprecated_string()}&enrollment_action=enroll";
+        $('#register_error').html("he currently logged-in user account does not have permission to enroll in this course.").css("display", "block");
       } else if (xhr.status == 400) { //This means the user did not have permission
         $('#register_error').html("he currently logged-in user account does not have permission to enroll in this course.").css("display", "block");
       } else {
@@ -115,7 +103,20 @@
                $("#password_reset_complete_link").click();
              });
     });
-
+    
+    if(localStorage["registerURLs"] != undefined){
+      var registerURL = localStorage["registerURLs"].split(",")[0];
+      if(localStorage["registerURLs"].split(",").length == 1){
+        localStorage.removeItem("registerURLs");
+      }
+      else{
+        localStorage["registerURLs"] = localStorage["registerURLs"].substring(registerURL.length+1, localStorage["registerURLs"].length)
+      }
+      $("input[name='course_id'", $("#class_enroll_form")) = registerURL;
+      $("input[name='enrollment_action'", $("#class_enroll_form")) = "enroll";
+      $("#class_enroll_form").submit();
+    }
+    
     $("#submit-lang").click(function(event, xhr) {
         event.preventDefault();
         $.post('/lang_pref/setlang/',
