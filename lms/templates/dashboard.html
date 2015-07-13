@@ -4,6 +4,9 @@
 
 <%!
   from django.core.urlresolvers import reverse
+  from courseware.courses import course_image_url, get_course_about_section
+  from django.conf import settings
+  from edxmako.shortcuts import marketing_link
   import waffle
 %>
 
@@ -106,14 +109,15 @@
     
     if(localStorage["registerURLs"] != undefined){
       var registerURL = localStorage["registerURLs"].split(",")[0];
+      var courseId = registerURL.substring(20, registerURL.indexOf("&"))
       if(localStorage["registerURLs"].split(",").length == 1){
         localStorage.removeItem("registerURLs");
       }
       else{
         localStorage["registerURLs"] = localStorage["registerURLs"].substring(registerURL.length+1, localStorage["registerURLs"].length)
       }
-      $("input[name='course_id'", $("#class_enroll_form")) = registerURL;
-      $("input[name='enrollment_action'", $("#class_enroll_form")) = "enroll";
+      $("input[name='course_id'", $("#class_enroll_form")).val(courseId);
+      $("input[name='enrollment_action'", $("#class_enroll_form")).val("enroll");
       $("#class_enroll_form").submit();
     }
     
