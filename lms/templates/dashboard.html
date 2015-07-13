@@ -257,17 +257,6 @@
       ${_('The selected {provider_name} account is already linked to another {platform_name} account. Please {link_start}log out{link_end}, then log in with your {provider_name} account.').format(link_end='</a>', link_start='<a href="%s">' % logout_url, provider_name='<strong>%s</strong>' % duplicate_provider.NAME, platform_name=platform_name)}
     </section>
   % endif
-  <div style="display: none;">
-    <form id="class_enroll_form" method="post" data-remote="true" action="${reverse('change_enrollment')}">
-      <fieldset class="enroll_fieldset">
-        <input name="course_id" type="hidden"/>
-        <input name="enrollment_action" type="hidden"/>
-      </fieldset>
-      <div class="submit">
-        <input name="submit" type="submit" value="enroll">
-      </div>
-    </form>
-  </div>
   <section class="profile-sidebar">
     <header class="profile">
       <h1 class="user-name">${ user.username }</h1>
@@ -579,6 +568,17 @@
       <input name="enrollment_action" type="hidden" value="unenroll" />
       <div class="submit">
         <input name="submit" type="submit" value="${_('Unregister')}" />
+      </div>
+    </form>
+  </div>
+   <div style="display: none;">
+    <form id="class_enroll_form" method="post" data-remote="true" action="${reverse('change_enrollment')}">
+      <fieldset class="enroll_fieldset">
+        <input name="course_id" type="hidden"/>
+        <input name="enrollment_action" type="hidden"/>
+      </fieldset>
+      <div class="submit">
+        <input name="submit" type="submit" value="enroll">
       </div>
     </form>
   </div>
