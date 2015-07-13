@@ -23,7 +23,17 @@
 <%block name="js_extra">
   <script type="text/javascript">
   (function() {
-
+    if(localStorage["registerURLs"] != undefined){
+      var registerURL = localStorage["registerURLs"].split(",")[0];
+      if(localStorage["registerURLs"].split(",").length == 1){
+        localStorage.remove("registerURLs");
+      }
+      else{
+        localStorage["registerURLs"] = localStorage["registerURLs"].substring(registerURL.length+1, localStorage["registerURLs"].length)
+      }
+      window.location.href = registerURL;
+    }
+    
     $('.message.is-expandable .wrapper-tip').bind('click', toggleExpandMessage);
 
     function toggleExpandMessage(e) {
