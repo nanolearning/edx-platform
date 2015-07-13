@@ -103,7 +103,7 @@
           location.href = xhr.responseText;
         }
       } else if (xhr.status == 403) {
-        localStorage[registerURLs] = "${reverse('register_user')}?course_id=${course.id.to_deprecated_string()}&enrollment_action=enroll";
+        localStorage["registerURLs"] = "${reverse('register_user')}?course_id=${course.id.to_deprecated_string()}&enrollment_action=enroll";
         location.href = "${reverse('register_user')}";
       } else {
         $('#register_error').html(
