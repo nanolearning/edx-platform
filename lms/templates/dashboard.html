@@ -26,7 +26,7 @@
     if(localStorage["registerURLs"] != undefined){
       var registerURL = localStorage["registerURLs"].split(",")[0];
       if(localStorage["registerURLs"].split(",").length == 1){
-        localStorage.remove("registerURLs");
+        localStorage.removeItem("registerURLs");
       }
       else{
         localStorage["registerURLs"] = localStorage["registerURLs"].substring(registerURL.length+1, localStorage["registerURLs"].length)
