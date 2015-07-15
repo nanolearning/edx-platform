@@ -54,7 +54,7 @@ from django.conf import settings
 
       %if settings.FEATURES.get("SHOW_PROGRESS_SUCCESS_BUTTON"):
         <%
-          SUCCESS_BUTTON_URL = _("http://aguqa.mis.amat.com/integ/finish.php?C={course_id}").format(
+          SUCCESS_BUTTON_URL = _("http://agu.mis.amat.com/integ/finish.php?C={course_id}").format(
             course_id=course.id)
           nonzero_cutoffs = [cutoff for cutoff in course.grade_cutoffs.values() if cutoff > 0]
           success_cutoff = min(nonzero_cutoffs) if nonzero_cutoffs else None
@@ -66,7 +66,7 @@ from django.conf import settings
             </a>
             <script type="text/javascript">
               var href = $("#course-success a").attr("href");
-              href = href.split("?")[0] + "?C=EDX" + href.split("?")[1].split("+")[1] + href.split("?")[1].split("+")[2];
+              href = href.split("?")[0] + "?C=EDX" + (href.split("?")[1].split("+")[1] + href.split("?")[1].split("+")[2]).toUpperCase();
               $("#course-success a").attr("href", href);
               $("#course-success").show();
             
