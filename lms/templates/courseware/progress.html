@@ -66,9 +66,10 @@ from django.conf import settings
             </a>
             <script type="text/javascript">
               var href = $("#course-success a").attr("href");
-              href = href.split("?")[0] + "?C=" + href.split("?")[1].split("+")[1];
+              href = href.split("?")[0] + "?C=EDX" + href.split("?")[1].split("+")[1] + href.split("?")[1].split("+")[2];
               $("#course-success a").attr("href", href);
               $("#course-success").show();
+            
             </script>
           </div>
         %endif
