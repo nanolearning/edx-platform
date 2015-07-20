@@ -66,10 +66,11 @@ from django.conf import settings
             </a>
             <script type="text/javascript">
               var href = $("#course-success a").attr("href");
-              href = href.split("?")[0] + "?C=EDX" + (href.split("?")[1].split("+")[1] + href.split("?")[1].split("+")[2]).toUpperCase();
+              var crs_id = (href.split("?")[1].split("+")[1] + href.split("?")[1].split("+")[2]).toUpperCase();
+              href = href.split("?")[0] + "?C=EDX" + crs_id
               $("#course-success a").attr("href", href);
               $("#course-success").show();
-              $("#course-success a").click(function(){window.open("https://survey.amat.com/survey/s?s=34513&opdata_name1=" + href.split("?")[1].split("+")[1] + href.split("?")[1].split("+")[2]).toUpperCase()});
+              $("#course-success a").click(function(){window.open("https://survey.amat.com/survey/s?s=34513&opdata_name1=" + crs_id)});
             </script>
           </div>
         %endif
