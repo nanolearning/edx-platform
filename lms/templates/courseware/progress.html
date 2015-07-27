@@ -61,7 +61,7 @@ from django.conf import settings
         %>
         %if success_cutoff and grade_summary['percent'] > success_cutoff:
           <div id="course-success" style="display:none;">
-            <a href="${SUCCESS_BUTTON_URL}">
+            <a href="${SUCCESS_BUTTON_URL}" target="_blank">
               ${settings.PROGRESS_SUCCESS_BUTTON_TEXT_OVERRIDE or _("Get credit for the course")}
             </a>
             <script type="text/javascript">
@@ -70,7 +70,7 @@ from django.conf import settings
               href = href.split("?")[0] + "?C=EDX" + crs_id
               $("#course-success a").attr("href", href);
               $("#course-success").show();
-              $("#course-success a").click(function(){window.open("https://survey.amat.com/survey/s?s=34513&opdata_name1=" + crs_id)});
+             // $("#course-success a").click(function(){window.open("https://survey.amat.com/survey/s?s=34513&opdata_name1=" + crs_id)});
             </script>
           </div>
         %endif
