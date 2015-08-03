@@ -12,6 +12,7 @@ in XML.
 """
 import json
 import logging
+import rsa
 import boto
 import time
 from operator import itemgetter
