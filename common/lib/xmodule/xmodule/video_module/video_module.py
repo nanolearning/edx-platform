@@ -115,9 +115,9 @@ class VideoModule(VideoFields, VideoStudentViewHandlers, XModule):
 
         if self.download_video:
             if self.source:
-                sources['main'] = get_signed_url(self.source)
+                sources['main'] = self.get_signed_url(self.source)
             elif self.html5_sources:
-                sources['main'] = get_signed_url(self.html5_sources[0])
+                sources['main'] = self.get_signed_url(self.html5_sources[0])
 
         if self.download_track:
             if self.track:
