@@ -95,7 +95,7 @@ class VideoModule(VideoFields, VideoStudentViewHandlers, XModule):
     ]}
     js_module_name = "Video"
 
-    def get_signed_url(url):
+    def get_signed_url(self, url):
         s3 = boto.connect_s3("AKIAI37FBSK367X3MYVA", "pYTkWZk7Cn+WKpaM/jtyOR6p0WWrG41uQg4n0QzN")
         cf = boto.connect_cloudfront("AKIAI37FBSK367X3MYVA", "pYTkWZk7Cn+WKpaM/jtyOR6p0WWrG41uQg4n0QzN")
         key_pair_id = "APKAJZOGSYCBLAOSVU3A" 
