@@ -94,18 +94,6 @@ class VideoModule(VideoFields, VideoStudentViewHandlers, XModule):
         resource_string(module, 'css/video/accessible_menu.scss'),
     ]}
     js_module_name = "Video"
-
-    def get_signed_url(url):
-        s3 = boto.connect_s3("AKIAI37FBSK367X3MYVA", "pYTkWZk7Cn+WKpaM/jtyOR6p0WWrG41uQg4n0QzN")
-        cf = boto.connect_cloudfront("AKIAI37FBSK367X3MYVA", "pYTkWZk7Cn+WKpaM/jtyOR6p0WWrG41uQg4n0QzN")
-        key_pair_id = "APKAJZOGSYCBLAOSVU3A" 
-        priv_key_file = "pk-APKAJZOGSYCBLAOSVU3A.pem" 
-        expires = int(time.time()) + 9000 #5 min
-        http_resource = url
-        dist = cf.get_all_distributions()[0].get_distribution()  
-        http_signed_url = dist.create_signed_url(http_resource, key_pair_id, expires, private_key_file=priv_key_file)
-        return http_signed_url
-    
     
     def get_html(self):
         track_url = None
@@ -115,9 +103,9 @@ class VideoModule(VideoFields, VideoStudentViewHandlers, XModule):
 
         if self.download_video:
             if self.source:
-                sources['main'] = get_signed_url(self.source)
+                sources['main'] = self.source
             elif self.html5_sources:
-                sources['main'] = get_signed_url(self.html5_sources[0])
+                sources['main'] = self.html5_sources[0]
 
         if self.download_track:
             if self.track:
