@@ -27,7 +27,7 @@
     <article class="course">
   %endif
     <%
-      course_target = reverse('info', args=[course.id.to_deprecated_string()])
+      course_target = reverse('courseware', args=[course.id.to_deprecated_string()])
     %>
 
     % if show_courseware_link:
@@ -61,7 +61,7 @@
 
     <section class="info">
       <hgroup>
-        <p class="date-block">
+        <p class="date-block" style="display:none">
         % if course.has_ended():
         ${_("Course Completed - {end_date}").format(end_date=course.end_date_text)}
         % elif course.has_started():
