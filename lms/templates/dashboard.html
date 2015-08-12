@@ -70,7 +70,7 @@
       analytics.track("Clicked on Regular Upsell Copy", {
         course: course
       });
-      % endif
+      % endifcon
     });
 
     $(".email-settings").click(function(event) {
@@ -302,7 +302,7 @@
         % endif
 
         % if external_auth_map is None or 'shib' not in external_auth_map.external_domain:
-        <li class="controls--account">
+        <li class="controls--account" style="display:none">
           <span class="title"><div class="icon"></div><a href="#password_reset_complete" rel="leanModal" id="pwd_reset_button">${_("Reset Password")}</a></span>
           <form id="password_reset_form" method="post" data-remote="true" action="${reverse('password_reset')}">
             <input id="id_email" type="hidden" name="email" maxlength="75" value="${user.email}" />
