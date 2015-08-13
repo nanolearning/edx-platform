@@ -210,6 +210,15 @@
       accessible_modal(trigger, "#unenroll-modal .close-modal", "#unenroll-modal", "#dashboard-main");
     });
   });
+  $(document).ready(function(){
+    var len=$(".course-item").length;
+    for(i=0;i<len;i++){
+	    for(j=0;j<i;j++){
+		    if($("a", $($(".course-item")[i])).first().attr("href").split("/")[4] <= $("a", $($(".course-item")[j])).first().attr("href").split("/")[4])
+			    $($(".course-item")[i]).insertBefore($(".course-item")[j])
+			}
+    }
+  });
   </script>
 </%block>
  
