@@ -111,6 +111,9 @@
   ## show either with or without this extra js for 3 minutes at a time.
 <script type="text/javascript">
   $(window).load(function() {$('#signup_action').trigger("click");});
+</script>
+% endif
+<script type="text/javascript">
   $(document).ready(function(){
 	var len=$(".courses-listing-item").length;
 	for(i=0;i<len;i++){
@@ -121,4 +124,3 @@
 	}
 });
 </script>
-% endif
