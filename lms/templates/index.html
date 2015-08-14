@@ -25,7 +25,7 @@
             ${homepage_overlay_html}
           % else:
             % if self.stanford_theme_enabled():
-              <h1>${_("Free courses from <strong>{university_name}</strong>").format(university_name="Applied Materials")}</h1>
+              <h1>${_("Courses from <strong>{university_name}</strong>").format(university_name="Applied's experts")}</h1>
             % else:
               <h1>${_("The Future of Online Education")}</h1>
             % endif
@@ -59,7 +59,7 @@
       </div>
 
       % if show_homepage_promo_video:
-        <a href="#video-modal" class="media" rel="leanModal">
+        <a href="#video-modal" class="media" rel="leanModal" onclick="setTimeout(function() {$('video', $('#modal_clone'))[0].play()}, 4000);">
           <div class="hero">
             <div class="play-intro"></div>
           </div>
@@ -93,7 +93,7 @@
       if self.stanford_theme_enabled():
         youtube_video_id = "Y5XjSdE2PbA"
     %>
-   <video  width="640" height="360" autoplay src="https://s3-us-west-2.amazonaws.com/nanolearningvideosamtv/appliedx_intro/demo_video.mp4"></video>  </div>
+   <video  width="640" height="360" controls src="https://s3-us-west-2.amazonaws.com/nanolearningvideosamtv/appliedx_intro/demo_video.mp4"></video>
  </div>
 </section>
 
